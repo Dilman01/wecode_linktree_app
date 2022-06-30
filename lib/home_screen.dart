@@ -154,9 +154,11 @@ class HomeScreen extends StatelessWidget {
                 child: const Text(
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.',
                   style: TextStyle(
-                      fontSize: 15,
-                      fontWeight: FontWeight.w400,
-                      color: Color.fromRGBO(114, 114, 114, 1)),
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                    color: Color.fromRGBO(114, 114, 114, 1),
+                  ),
+                  textAlign: TextAlign.center,
                 ),
               ),
               Container(
