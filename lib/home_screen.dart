@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatelessWidget {
   final Uri _url = Uri.parse('https://flutter.dev');
@@ -11,14 +10,13 @@ class HomeScreen extends StatelessWidget {
       'name': 'LinkedIn Profile',
       'icon': const FaIcon(FontAwesomeIcons.linkedinIn, color: Colors.black),
       'color': const Color.fromRGBO(243, 242, 255, 1),
+      'url': Uri.parse('https://www.linkedin.com/in/dilman-arif-948465240/'),
     },
     {
       'name': 'Facebook Profile',
-      'icon': const FaIcon(
-        FontAwesomeIcons.facebookF,
-        color: Colors.black,
-      ),
+      'icon': const FaIcon(FontAwesomeIcons.facebookF, color: Colors.black),
       'color': const Color.fromRGBO(199, 228, 255, 1),
+      'url': Uri.parse('https://www.facebook.com/dilman.arif/'),
     },
     {
       'name': 'Instagram Profile',
@@ -27,6 +25,7 @@ class HomeScreen extends StatelessWidget {
         color: Colors.black,
       ),
       'color': const Color.fromRGBO(255, 242, 242, 1),
+      'url': Uri.parse('https://www.instagram.com/dilman.01/'),
     },
     {
       'name': 'Twitter Profile',
@@ -35,6 +34,7 @@ class HomeScreen extends StatelessWidget {
         color: Colors.black,
       ),
       'color': Color.fromARGB(255, 159, 231, 251),
+      'url': Uri.parse('https://twitter.com/dilman01'),
     },
     {
       'name': 'Github Profile',
@@ -43,12 +43,13 @@ class HomeScreen extends StatelessWidget {
         color: Colors.black,
       ),
       'color': const Color.fromRGBO(255, 251, 242, 1),
+      'url': Uri.parse('https://github.com/Dilman01'),
     },
   ];
 
-  Widget linksBox(FaIcon icon, String name, Color color) {
+  Widget linksBox(FaIcon icon, String name, Color color, Uri url) {
     return InkWell(
-      onTap: () => _launchUrl(),
+      onTap: () => _launchUrl(url),
       child: Card(
         elevation: 5,
         child: Container(
@@ -93,8 +94,11 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  void _launchUrl() async {
-    if (!await launchUrl(_url)) throw 'Could not launch $_url';
+  void _launchUrl(Uri url) async {
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    }
+    // if (!await launchUrl(_url)) throw 'Could not launch $_url';
   }
 
   @override
@@ -164,6 +168,7 @@ class HomeScreen extends StatelessWidget {
                     linksList[index]['icon'],
                     linksList[index]['name'],
                     linksList[index]['color'],
+                    linksList[index]['url'],
                   ),
                 ),
               ),
