@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:url_launcher/url_launcher.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 class HomeScreen extends StatelessWidget {
+  final Uri _url = Uri.parse('https://flutter.dev');
+
   final List linksList = [
     {
       'name': 'LinkedIn Profile',
@@ -25,6 +29,14 @@ class HomeScreen extends StatelessWidget {
       'color': const Color.fromRGBO(255, 242, 242, 1),
     },
     {
+      'name': 'Twitter Profile',
+      'icon': const FaIcon(
+        FontAwesomeIcons.twitter,
+        color: Colors.black,
+      ),
+      'color': Color.fromARGB(255, 159, 231, 251),
+    },
+    {
       'name': 'Github Profile',
       'icon': const FaIcon(
         FontAwesomeIcons.github,
@@ -36,12 +48,13 @@ class HomeScreen extends StatelessWidget {
 
   Widget linksBox(FaIcon icon, String name, Color color) {
     return InkWell(
-      onTap: () {},
+      onTap: () => _launchUrl(),
       child: Card(
         elevation: 5,
         child: Container(
           width: 299,
           height: 50,
+          padding: EdgeInsets.zero,
           color: color,
           child: ListTile(
             leading: icon,
@@ -78,6 +91,10 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  void _launchUrl() async {
+    if (!await launchUrl(_url)) throw 'Could not launch $_url';
   }
 
   @override
@@ -140,9 +157,9 @@ class HomeScreen extends StatelessWidget {
               ),
               Container(
                 width: 299,
-                height: 255,
+                height: 270,
                 child: ListView.builder(
-                  itemCount: 4,
+                  itemCount: linksList.length,
                   itemBuilder: (context, index) => linksBox(
                     linksList[index]['icon'],
                     linksList[index]['name'],
