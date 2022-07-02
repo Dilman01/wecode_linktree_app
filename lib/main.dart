@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:wecode_linktree_app/screens/messages_screen.dart';
 
-import 'home_screen.dart';
+import 'screens/home_screen.dart';
 
 void main() {
   runApp(MyApp());
@@ -10,7 +11,11 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: HomeScreen(),
+      // home: HomeScreen(),
+      routes: {
+        '/': (context) => HomeScreen(),
+        MessagesScreen.routeName: (context) => MessagesScreen(),
+      },
     );
   }
 }

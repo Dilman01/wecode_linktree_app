@@ -1,7 +1,10 @@
+import 'dart:ffi';
+
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
+import 'package:wecode_linktree_app/screens/messages_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final List linksList = [
@@ -26,15 +29,15 @@ class HomeScreen extends StatelessWidget {
       'color': const Color.fromRGBO(255, 242, 242, 1),
       'url': Uri.parse('https://www.instagram.com/dilman.01/'),
     },
-    {
-      'name': 'Twitter Profile',
-      'icon': const FaIcon(
-        FontAwesomeIcons.twitter,
-        color: Colors.black,
-      ),
-      'color': Color.fromARGB(255, 159, 231, 251),
-      'url': Uri.parse('https://twitter.com/dilman01'),
-    },
+    // {
+    //   'name': 'Twitter Profile',
+    //   'icon': const FaIcon(
+    //     FontAwesomeIcons.twitter,
+    //     color: Colors.black,
+    //   ),
+    //   'color': Color.fromARGB(255, 159, 231, 251),
+    //   'url': Uri.parse('https://twitter.com/dilman01'),
+    // },
     {
       'name': 'Github Profile',
       'icon': const FaIcon(
@@ -78,7 +81,7 @@ class HomeScreen extends StatelessWidget {
     );
   }
 
-  Widget iconButtons(FaIcon icon, Color color) {
+  Widget iconButtons(FaIcon icon, Color color, Function function) {
     return Container(
       width: 57,
       height: 57,
@@ -87,7 +90,7 @@ class HomeScreen extends StatelessWidget {
         child: IconButton(
           padding: const EdgeInsets.all(4),
           icon: icon,
-          onPressed: () {},
+          onPressed: () => function(),
         ),
       ),
     );
@@ -161,7 +164,7 @@ class HomeScreen extends StatelessWidget {
               ),
               Container(
                 width: 299,
-                height: 270,
+                height: 300,
                 child: ListView.builder(
                   itemCount: linksList.length,
                   itemBuilder: (context, index) => linksBox(
@@ -179,26 +182,34 @@ class HomeScreen extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
                   iconButtons(
-                      const FaIcon(
-                        FontAwesomeIcons.whatsappSquare,
-                        size: 30,
-                        color: Colors.green,
-                      ),
-                      const Color.fromARGB(255, 212, 251, 237)),
+                    const FaIcon(
+                      FontAwesomeIcons.whatsappSquare,
+                      size: 30,
+                      color: Colors.green,
+                    ),
+                    const Color.fromARGB(255, 212, 251, 237),
+                    () {},
+                  ),
                   iconButtons(
-                      const FaIcon(
-                        FontAwesomeIcons.solidEnvelope,
-                        size: 30,
-                        color: Colors.grey,
-                      ),
-                      const Color.fromRGBO(199, 228, 255, 1)),
+                    const FaIcon(
+                      FontAwesomeIcons.solidEnvelope,
+                      size: 30,
+                      color: Colors.grey,
+                    ),
+                    const Color.fromRGBO(199, 228, 255, 1),
+                    () {},
+                  ),
                   iconButtons(
-                      const FaIcon(
-                        FontAwesomeIcons.solidMessage,
-                        size: 30,
-                        color: Colors.greenAccent,
-                      ),
-                      const Color.fromARGB(255, 252, 238, 238)),
+                    const FaIcon(
+                      FontAwesomeIcons.solidMessage,
+                      size: 30,
+                      color: Colors.greenAccent,
+                    ),
+                    const Color.fromARGB(255, 252, 238, 238),
+                    () {
+                      Navigator.of(context).pushNamed(MessagesScreen.routeName);
+                    },
+                  ),
                 ],
               ),
             ],
