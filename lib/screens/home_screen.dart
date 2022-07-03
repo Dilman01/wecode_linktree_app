@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -29,15 +27,6 @@ class HomeScreen extends StatelessWidget {
       'color': const Color.fromRGBO(255, 242, 242, 1),
       'url': Uri.parse('https://www.instagram.com/dilman.01/'),
     },
-    // {
-    //   'name': 'Twitter Profile',
-    //   'icon': const FaIcon(
-    //     FontAwesomeIcons.twitter,
-    //     color: Colors.black,
-    //   ),
-    //   'color': Color.fromARGB(255, 159, 231, 251),
-    //   'url': Uri.parse('https://twitter.com/dilman01'),
-    // },
     {
       'name': 'Github Profile',
       'icon': const FaIcon(
