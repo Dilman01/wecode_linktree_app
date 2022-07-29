@@ -34,9 +34,6 @@ class _SendMessageState extends State<SendMessage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          SizedBox(
-            height: 20,
-          ),
           Divider(),
           Container(
             width: 257,

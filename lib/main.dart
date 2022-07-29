@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'package:wecode_linktree_app/screens/messages_screen.dart';
+import 'package:wecode_linktree_app/screens/chat_screen.dart';
 
 import 'screens/home_screen.dart';
 

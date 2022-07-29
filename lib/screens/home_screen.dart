@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:url_launcher/url_launcher.dart';
-import 'package:wecode_linktree_app/screens/messages_screen.dart';
+import 'package:wecode_linktree_app/screens/chat_screen.dart';
 
 class HomeScreen extends StatelessWidget {
   final List linksList = [

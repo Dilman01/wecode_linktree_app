@@ -40,8 +40,11 @@ class MessagesContainer extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
           ),
-          SizedBox(
-            height: 5,
+          // SizedBox(
+          //   height: 5,
+          // ),
+          Divider(
+            color: Colors.black,
           ),
           Container(
             width: 283,
