@@ -39,21 +39,6 @@ class HomeScreen extends StatelessWidget {
     },
   ];
 
-  Widget iconButtons(FaIcon icon, Color color, Function function) {
-    return Container(
-      width: 57,
-      height: 57,
-      child: CircleAvatar(
-        backgroundColor: color,
-        child: IconButton(
-          padding: const EdgeInsets.all(4),
-          icon: icon,
-          onPressed: () => function(),
-        ),
-      ),
-    );
-  }
-
   @override
   Widget build(BuildContext context) {
     final user = FirebaseAuth.instance.currentUser;
