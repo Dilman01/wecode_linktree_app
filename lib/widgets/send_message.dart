@@ -1,32 +1,28 @@
-// ignore_for_file: prefer_const_constructors
-
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
 
-class SendMessage extends StatefulWidget {
-  const SendMessage({
-    Key? key,
-  }) : super(key: key);
-
-  @override
-  State<SendMessage> createState() => _SendMessageState();
-}
-
-class _SendMessageState extends State<SendMessage> {
-  var _enteredName = '';
-  var _enteredMessage = '';
-  final _nameController = TextEditingController();
+class SendMessage extends StatelessWidget {
   final _messageController = TextEditingController();
 
-  void _sendMessage() {
+  void _sendMessage(BuildContext context) async {
     FocusScope.of(context).unfocus();
 
+    final user = await FirebaseAuth.instance.currentUser;
+
+    final userData = await FirebaseFirestore.instance
+        .collection('users')
+        .doc(user!.uid)
+        .get();
+
     FirebaseFirestore.instance.collection('chat').add({
-      'name': _enteredName,
-      'message': _enteredMessage,
+      'username': userData['username'],
+      'message': _messageController.text,
+      'userId': user.uid,
+      'date': Timestamp.now(),
     });
-    _nameController.clear();
+
     _messageController.clear();
   }
 
@@ -36,89 +32,47 @@ class _SendMessageState extends State<SendMessage> {
       child: Column(
         mainAxisAlignment: MainAxisAlignment.end,
         children: [
-          Divider(),
-          Container(
-            width: 257,
-            height: 30,
-            child: Text(
-              'SEND ME A MESSAGE',
-              style: TextStyle(
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-              ),
-              textAlign: TextAlign.center,
-            ),
-          ),
-          Container(
-            width: 340,
-            height: 100,
-            decoration: BoxDecoration(
-              color: Color.fromRGBO(246, 246, 246, 1),
-              border: Border.all(color: Color.fromRGBO(233, 233, 233, 1)),
-              borderRadius: BorderRadius.circular(10),
-            ),
-            child: TextField(
-              controller: _messageController,
-              maxLines: null,
-              maxLength: null,
-              expands: true,
-              decoration: InputDecoration(
-                border: OutlineInputBorder(),
-                hintText: 'Write a message...',
-              ),
-              onChanged: (value) {
-                setState(() {
-                  _enteredMessage = value;
-                });
-              },
-            ),
-          ),
-          SizedBox(
-            height: 10,
-          ),
+          const Divider(),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                width: 280,
-                height: 58,
+                width: 300,
+                height: 65,
                 decoration: BoxDecoration(
-                  color: Color.fromRGBO(246, 246, 246, 1),
-                  border: Border.all(color: Color.fromRGBO(233, 233, 233, 1)),
+                  color: const Color.fromRGBO(246, 246, 246, 1),
+                  border:
+                      Border.all(color: const Color.fromRGBO(233, 233, 233, 1)),
                   borderRadius: BorderRadius.circular(10),
                 ),
                 child: TextField(
-                  controller: _nameController,
+                  controller: _messageController,
                   maxLines: null,
                   maxLength: null,
                   expands: true,
-                  decoration: InputDecoration(
+                  decoration: const InputDecoration(
                     border: OutlineInputBorder(),
-                    hintText: 'Name',
+                    hintText: 'Write your message here...',
                   ),
-                  onChanged: (value) {
-                    setState(() {
-                      _enteredName = value;
-                    });
-                  },
                 ),
               ),
-              SizedBox(
+              const SizedBox(
                 width: 15,
               ),
               IconButton(
-                padding: EdgeInsets.only(bottom: 10),
-                icon: Icon(
+                icon: const Icon(
                   Icons.send,
                   size: 45,
                   color: Color.fromRGBO(0, 255, 133, 1),
                 ),
-                onPressed: _sendMessage,
+                onPressed: () => _messageController.text.isEmpty
+                    ? null
+                    : _sendMessage(context),
               ),
             ],
           ),
-          SizedBox(
+          const SizedBox(
             height: 20,
           ),
         ],

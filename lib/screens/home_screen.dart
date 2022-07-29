@@ -1,7 +1,7 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-
 import 'package:wecode_linktree_app/screens/chat_screen.dart';
 import 'package:wecode_linktree_app/widgets/profile_links.dart';
 
@@ -56,6 +56,7 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       body: SingleChildScrollView(
         child: Center(
@@ -88,15 +89,34 @@ class HomeScreen extends StatelessWidget {
               Container(
                 width: 257,
                 height: 33,
-                child: const Text(
-                  'FULL NAME',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.w400,
-                    fontFamily: 'Avenir',
-                  ),
-                  textAlign: TextAlign.center,
-                ),
+                child: StreamBuilder(
+                    stream: FirebaseFirestore.instance
+                        .collection('users')
+                        .doc(user!.uid)
+                        .snapshots(),
+                    builder: (context, snapshot) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
+                        return const Center(
+                          child: Text('Loading...'),
+                        );
+                      }
+                      if (snapshot.hasError) {
+                        print(snapshot.error);
+                        return const Center(
+                          child: Text('Something went wrong!'),
+                        );
+                      }
+
+                      return Text(
+                        snapshot.data!.data()!['username'],
+                        style: const TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.w400,
+                          fontFamily: 'Avenir',
+                        ),
+                        textAlign: TextAlign.center,
+                      );
+                    }),
               ),
               const SizedBox(
                 height: 16,
@@ -134,34 +154,39 @@ class HomeScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceAround,
                 children: [
-                  iconButtons(
-                    const FaIcon(
-                      FontAwesomeIcons.whatsappSquare,
-                      size: 30,
-                      color: Colors.green,
+                  Container(
+                    width: 150,
+                    height: 50,
+                    child: ElevatedButton.icon(
+                      icon: const Icon(
+                        Icons.logout,
+                        size: 30,
+                      ),
+                      label: const Text(
+                        'Logout',
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                      onPressed: () => FirebaseAuth.instance.signOut(),
                     ),
-                    const Color.fromARGB(255, 212, 251, 237),
-                    () {},
                   ),
-                  iconButtons(
-                    const FaIcon(
-                      FontAwesomeIcons.solidEnvelope,
-                      size: 30,
-                      color: Colors.grey,
+                  Container(
+                    width: 150,
+                    height: 50,
+                    child: ElevatedButton.icon(
+                      icon: const Icon(Icons.chat, size: 30),
+                      label: const Text(
+                        "Chat",
+                        style: TextStyle(
+                          fontSize: 20,
+                        ),
+                      ),
+                      onPressed: () {
+                        Navigator.of(context)
+                            .pushNamed(MessagesScreen.routeName);
+                      },
                     ),
-                    const Color.fromRGBO(199, 228, 255, 1),
-                    () {},
-                  ),
-                  iconButtons(
-                    const FaIcon(
-                      FontAwesomeIcons.solidMessage,
-                      size: 30,
-                      color: Colors.greenAccent,
-                    ),
-                    const Color.fromARGB(255, 252, 238, 238),
-                    () {
-                      Navigator.of(context).pushNamed(MessagesScreen.routeName);
-                    },
                   ),
                 ],
               ),
