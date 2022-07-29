@@ -48,23 +48,53 @@ class HomeScreen extends StatelessWidget {
           height: 50,
           padding: EdgeInsets.zero,
           color: color,
-          child: ListTile(
-            leading: icon,
-            title: Container(
-              margin: const EdgeInsets.only(right: 50),
-              width: 158,
-              height: 32,
-              padding: const EdgeInsets.all(4),
-              child: Text(
-                name,
-                style: const TextStyle(
-                  fontSize: 15,
-                  fontWeight: FontWeight.w400,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceAround,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              icon,
+              // Text(
+              //   name,
+              //   style: const TextStyle(
+              //     fontSize: 15,
+              //     fontWeight: FontWeight.w400,
+              //   ),
+              //   textAlign: TextAlign.center,
+              // ),
+              Container(
+                // margin: const EdgeInsets.only(right: 50),
+                width: 165,
+                height: 32,
+                alignment: Alignment.centerLeft,
+                padding: EdgeInsets.zero,
+                child: Text(
+                  name,
+                  style: const TextStyle(
+                    fontSize: 15,
+                    fontWeight: FontWeight.w400,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
               ),
-            ),
+            ],
           ),
+          // child: ListTile(
+          //   leading: icon,
+          //   title: Container(
+          //     margin: const EdgeInsets.only(right: 50),
+          //     width: 158,
+          //     height: 32,
+          //     padding: const EdgeInsets.all(4),
+          //     child: Text(
+          //       name,
+          //       style: const TextStyle(
+          //         fontSize: 15,
+          //         fontWeight: FontWeight.w400,
+          //       ),
+          //       textAlign: TextAlign.center,
+          //     ),
+          //   ),
+          // ),
         ),
       ),
     );
@@ -140,7 +170,7 @@ class HomeScreen extends StatelessWidget {
               ),
               Container(
                 width: 257,
-                height: 101,
+                height: 100,
                 child: const Text(
                   'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitat.',
                   style: TextStyle(
@@ -149,6 +179,7 @@ class HomeScreen extends StatelessWidget {
                     color: Color.fromRGBO(114, 114, 114, 1),
                   ),
                   textAlign: TextAlign.center,
+                  textScaleFactor: 1,
                 ),
               ),
               Container(

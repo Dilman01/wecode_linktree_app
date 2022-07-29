@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "468645739883",
+    "project_id": "flutter-test-fb940",
+    "storage_bucket": "flutter-test-fb940.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:468645739883:android:b83e1c2dcc675c5c67602e",
+        "android_client_info": {
+          "package_name": "com.example.wecode_linktree_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "468645739883-0m521mnq803urkaan7k8oqhpdlvn1tdq.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBDw4Y6ywELk--b4Bi33Qwgt-1wm3g08TE"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "468645739883-0m521mnq803urkaan7k8oqhpdlvn1tdq.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
