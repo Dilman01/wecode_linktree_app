@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:url_launcher/url_launcher.dart';
+
 import 'package:wecode_linktree_app/screens/chat_screen.dart';
+import 'package:wecode_linktree_app/widgets/profile_links.dart';
 
 class HomeScreen extends StatelessWidget {
   final List linksList = [
@@ -38,68 +39,6 @@ class HomeScreen extends StatelessWidget {
     },
   ];
 
-  Widget linksBox(FaIcon icon, String name, Color color, Uri url) {
-    return InkWell(
-      onTap: () => _launchUrl(url),
-      child: Card(
-        elevation: 5,
-        child: Container(
-          width: 299,
-          height: 50,
-          padding: EdgeInsets.zero,
-          color: color,
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceAround,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              icon,
-              // Text(
-              //   name,
-              //   style: const TextStyle(
-              //     fontSize: 15,
-              //     fontWeight: FontWeight.w400,
-              //   ),
-              //   textAlign: TextAlign.center,
-              // ),
-              Container(
-                // margin: const EdgeInsets.only(right: 50),
-                width: 165,
-                height: 32,
-                alignment: Alignment.centerLeft,
-                padding: EdgeInsets.zero,
-                child: Text(
-                  name,
-                  style: const TextStyle(
-                    fontSize: 15,
-                    fontWeight: FontWeight.w400,
-                  ),
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
-          ),
-          // child: ListTile(
-          //   leading: icon,
-          //   title: Container(
-          //     margin: const EdgeInsets.only(right: 50),
-          //     width: 158,
-          //     height: 32,
-          //     padding: const EdgeInsets.all(4),
-          //     child: Text(
-          //       name,
-          //       style: const TextStyle(
-          //         fontSize: 15,
-          //         fontWeight: FontWeight.w400,
-          //       ),
-          //       textAlign: TextAlign.center,
-          //     ),
-          //   ),
-          // ),
-        ),
-      ),
-    );
-  }
-
   Widget iconButtons(FaIcon icon, Color color, Function function) {
     return Container(
       width: 57,
@@ -113,12 +52,6 @@ class HomeScreen extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  void _launchUrl(Uri url) async {
-    if (await canLaunchUrl(url)) {
-      await launchUrl(url);
-    }
   }
 
   @override
@@ -187,7 +120,7 @@ class HomeScreen extends StatelessWidget {
                 height: 300,
                 child: ListView.builder(
                   itemCount: linksList.length,
-                  itemBuilder: (context, index) => linksBox(
+                  itemBuilder: (context, index) => ProfileLinks(
                     linksList[index]['icon'],
                     linksList[index]['name'],
                     linksList[index]['color'],

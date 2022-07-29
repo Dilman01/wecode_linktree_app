@@ -19,7 +19,9 @@ class _SendMessageState extends State<SendMessage> {
   final _nameController = TextEditingController();
   final _messageController = TextEditingController();
 
-  void _sendMessage() async {
+  void _sendMessage() {
+    FocusScope.of(context).unfocus();
+
     FirebaseFirestore.instance.collection('chat').add({
       'name': _enteredName,
       'message': _enteredMessage,
