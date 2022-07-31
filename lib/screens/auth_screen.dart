@@ -2,12 +2,12 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
-class AuthForm extends StatefulWidget {
+class AuthScreen extends StatefulWidget {
   @override
-  State<AuthForm> createState() => _AuthFormState();
+  State<AuthScreen> createState() => _AuthScreenState();
 }
 
-class _AuthFormState extends State<AuthForm> {
+class _AuthScreenState extends State<AuthScreen> {
   final _formKey = GlobalKey<FormState>();
 
   final _usernameController = TextEditingController();
@@ -50,6 +50,14 @@ class _AuthFormState extends State<AuthForm> {
         ),
       );
     }
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _usernameController.dispose();
+    _emailController.dispose();
+    _passwordController.dispose();
   }
 
   @override
@@ -96,6 +104,7 @@ class _AuthFormState extends State<AuthForm> {
                     TextFormField(
                       key: const ValueKey('password'),
                       controller: _passwordController,
+                      obscureText: true,
                       validator: (value) {
                         if (value!.isEmpty || value.length < 6) {
                           return 'Password must be at least 6 characters!';
@@ -109,6 +118,7 @@ class _AuthFormState extends State<AuthForm> {
                     if (!isLogin)
                       TextFormField(
                         key: const ValueKey('confirPassword'),
+                        obscureText: true,
                         validator: !isLogin
                             ? (value) {
                                 if (value != _passwordController.text) {

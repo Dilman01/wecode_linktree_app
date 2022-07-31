@@ -35,7 +35,7 @@ class MyApp extends StatelessWidget {
               } else if (userSnapshot.hasData) {
                 return HomeScreen();
               }
-              return AuthForm();
+              return AuthScreen();
             },
           ),
           routes: {
